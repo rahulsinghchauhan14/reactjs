@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form>
+        <label>Color 1: <input type="color" id="color1" value="#ff0000"></label>
+        <br>
+        <label>Color 2: <input type="color" id="color2" value="#ffff00"></label>
+        <br>
+        <label>Color 3: <input type="color" id="color3" value="#00ff00"></label>
+      </form>
+      
+      <canvas id="myCanvas" width="400" height="200"></canvas>
+      
+      <script>
+        // Get a reference to the canvas element
+        var canvas = document.getElementById("myCanvas");
+      
+        // Get the 2d context for the canvas
+        var ctx = canvas.getContext("2d");
+      
+        // Create a gradient object
+        var gradient = ctx.createLinearGradient(0, 0, 400, 200);
+      
+        // Add color stops to the gradient
+        gradient.addColorStop(0, document.getElementById("color1").value);
+        gradient.addColorStop(0.5, document.getElementById("color2").value);
+        gradient.addColorStop(1, document.getElementById("color3").value);
+      
+        // Set the fill style to the gradient
+        ctx.fillStyle = gradient;
+      
+        // Draw a rectangle and fill it with the gradient
+        ctx.fillRect(0, 0, 400, 200);
+      
+        // Add an event listener to update the gradient when the form elements change
+        document.querySelectorAll("input[type=color]").forEach(function(input) {
+          input.addEventListener("input", updateGradient);
+        });
+      
+        function updateGradient() {
+          // Update the gradient object
+          gradient.addColorStop(0, document.getElementById("color1").value);
+          gradient.addColorStop(0.5, document.getElementById("color2").value);
+          gradient.addColorStop(1, document.getElementById("color3").value);
+      
+          // Redraw the gradient on the canvas
+          ctx.fillStyle = gradient;
+          ctx.fillRect(0, 0, 400, 200);
+        }
+      </script>
+      
+</body>
+</html>
