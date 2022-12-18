@@ -1,39 +1,36 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import BlogList from "./BlogList";
+import useFetch from "./useFetch";
 
 const Home = () => {
 
     const [name, setName] = useState('Rahul');
 
-    const [blogs, setBlogs] = useState([
-        {title: 'My first blog', body: '1 lorem ipsum...', author: 'rahul',id:1},
-        {title: 'My second blog', body: '2 lorem ipsum...', author: 'rahul',id:2},
-        {title: 'My third blog', body: '3 lorem ipsum...', author: 'umang',id:3},
-        {title: 'My fourth blog', body: '4 lorem ipsum...', author: 'rahul',id:4}
-    ]);
+    const {data: blogs, isPending, error} = useFetch('http://localhost:8000/blogs');
 
-    //let name = 'Rahul';
+    // const handleClick = ()=> {
+    //     setName('Umang');
+    // }
 
-    const handleClick = ()=> {
-        setName('Umang');
-    }
-
-    const handleDelete = (id) => {
-        const newBlogs = blogs.filter(blog => blog.id !== id);
-        setBlogs(newBlogs)
-    }
+    // const handleDelete = (id) => {
+    //     const newBlogs = blogs.filter(blog => blog.id !== id);
+    //     setBlogs(newBlogs)
+    // }
+    
 
     return ( 
-        <div className="home">
-            <h1>Home Page</h1>
-            <p>{ name }</p>
-            <button onClick={handleClick}>Click Me</button>
+        <div className="home"> 
+            {/* <p>{ name }</p> */}
+            {/* <button onClick={handleClick}>Click Me</button> */}
 
-            <BlogList blogs={blogs} title="All Blogs!" handleDelete={handleDelete} /> { /* example of props */}
+            { error && <div>{ error }</div> }
+            { isPending && <div>Loading...</div> }
+            {blogs && <BlogList blogs={blogs} title="All Blogs!" />}
+            
+            {/* {blogs && <BlogList blogs={blogs} title="All Blogs!" handleDelete={handleDelete} />} */}
 
             {/* example of reusable component */}
-
-            <BlogList blogs={blogs.filter((blog) => blog.author === 'umang')} title="Umang blogs"></BlogList>
+            {/* <BlogList blogs={blogs.filter((blog) => blog.author === 'umang')} title="Umang blogs"></BlogList> */}
         </div>
      );
 }
