@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 import BlogList from "./BlogList";
 import useFetch from "./useFetch";
 
 const Home = () => {
 
-    const [name, setName] = useState('Rahul');
+    // const [name, setName] = useState('Rahul');
 
     const {data: blogs, isPending, error} = useFetch('http://localhost:8000/blogs');
 
